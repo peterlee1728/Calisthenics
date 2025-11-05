@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import AuthWrapper from "./AuthWrapper.jsx";
 import LogoutPage from "../pages/LogoutPage.jsx";
+import Home from "../pages/Home.jsx";
 // import { useSelector } from "react-redux";
 // import { useTranslation } from "react-i18next";
 
@@ -28,6 +29,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/logout" element={<LogoutPage />} />
+      <Route path="home" element={<Home />} />
       <Route
         path="/"
         element={
@@ -38,7 +40,6 @@ function AppRoutes() {
       >
         {/* Add your routes here */}
         <Route index element={<Navigate replace to="/home" />} />
-        <Route path="/home" element={<div>Home Page</div>} />
 
         {/* Example routes - add your actual routes as you create pages */}
         {/* 

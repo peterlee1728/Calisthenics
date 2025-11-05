@@ -63,7 +63,7 @@ const InactivityComponent = () => {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="text-xs sm:text-base w-full cursor-pointer sm:w-3 p-2 text-blue-900 border-none border-round-sm sm:align-contents-center sm:justify-content-end awb-logout-button"
+                className="text-xs sm:text-base w-full cursor-pointer sm:w-12 p-2 text-blue-900 border-none border-round-sm sm:content-center sm:justify-end awb-logout-button"
               >
                 {t("inactivity.logout")}
               </button>

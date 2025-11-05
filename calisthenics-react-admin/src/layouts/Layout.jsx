@@ -7,15 +7,15 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div className="flex flex-column h-screen relative">
+    <div className="flex flex-col h-screen relative">
       <Globe className="fixed top-0 left-0 -z-10" />
       <Header />
       <div className="flex flex-1">
-        <div className=" flex w-20rem ml-6">
+        <div className="flex w-80 ml-6">
           <InactivityComponent />
           <SideMenu />
         </div>
-        <div className="flex m-0 w-full align-items-start	justify-content-start	px-6 pt-5 pb-2">
+        <div className="flex m-0 w-full items-start justify-start px-6 pt-5 pb-2">
           <Outlet />
         </div>
       </div>
