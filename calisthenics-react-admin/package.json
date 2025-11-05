@@ -11,24 +11,39 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@reduxjs/toolkit": "^2.10.1",
     "chart.js": "^4.5.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cobe": "^0.6.5",
+    "i18next": "^25.6.0",
+    "motion": "^12.23.24",
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.3"
+    "react-i18next": "^16.2.4",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.6.3",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9.30.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "postcss": "^8.5.6",
     "sass-embedded": "^1.93.2",
+    "tailwindcss": "^3.4.18",
+    "tailwindcss-animate": "^1.0.7",
     "vite": "^7.0.4"
   }
 }
