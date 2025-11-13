@@ -14,3 +14,4 @@ export { ShineBorder } from "./shine-border";
 export { Globe } from "./globe";
 export { BorderBeam } from "./border-beam";
 export { ShinyButton } from "./shiny-button";
+export { AnimatedThemeToggler } from "./animated-theme-toggler";
