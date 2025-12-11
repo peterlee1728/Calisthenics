@@ -43,9 +43,11 @@ public class UpdateUserDto {
     @Size(max = 20, message = "Mobile number must not exceed 20 characters")
     private String userMobile;
 
+    @NotBlank(message = "Emergency contact name is required")
     @Size(max = 100, message = "Emergency contact name must not exceed 100 characters")
     private String userEcName;
 
+    @NotBlank(message = "Emergency contact phone is required")
     @Size(max = 20, message = "Emergency contact phone must not exceed 20 characters")
     private String userEcPhno;
 

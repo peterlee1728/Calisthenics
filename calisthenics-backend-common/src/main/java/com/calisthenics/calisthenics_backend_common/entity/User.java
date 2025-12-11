@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "[APP_USER]", schema = "dbo")
+@Table(name = "[USER]", schema = "dbo")
 @Getter
 @Setter
 @NoArgsConstructor
