@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.7</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.calisthenics</groupId>
 	<artifactId>calisthenics-backend-common</artifactId>
@@ -32,6 +32,7 @@
 		<mapstruct.version>1.6.2</mapstruct.version>  <!-- Updated to latest stable -->
     	<lombok.version>1.18.34</lombok.version>  
 	</properties>
+
 	<dependencies>
 		<!-- Spring Data JPA for entities and repositories -->
 		<dependency>
@@ -98,5 +99,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

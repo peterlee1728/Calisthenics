@@ -2,6 +2,15 @@
 -- Create CALISTHENICS Database - SQL Server Version
 -- =====================================================
 
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'CALISTHENICS')
+BEGIN
+    CREATE DATABASE CALISTHENICS;
+END
+GO
+
+USE CALISTHENICS;
+GO
+
 -- Use the database
 USE CALISTHENICS;
 
