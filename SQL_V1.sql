@@ -11,9 +11,6 @@ GO
 USE CALISTHENICS;
 GO
 
--- Use the database
-USE CALISTHENICS;
-
 -- =====================================================
 -- Drop existing tables if they exist (for clean setup)
 -- =====================================================
@@ -64,7 +61,7 @@ CREATE TABLE [dbo].[USER] (
     [USER_ROLE] NVARCHAR(20) DEFAULT 'Member' CHECK ([USER_ROLE] IN ('Admin', 'Instructor', 'Member')),
     [USER_JOIN_DATE] DATE NOT NULL,
     [USER_LAST_LOGIN] DATETIME2,
-    [STATUS] NVARCHAR(20) DEFAULT 'Active' CHECK ([STATUS] IN ('Active', 'Inactive', 'Suspended')),
+    [STATUS] NVARCHAR(20) DEFAULT 'Y' CHECK ([STATUS] IN ('Y', 'N', 'S')),
     [CREATED_AT] DATETIME2 DEFAULT GETDATE(),
     [CREATED_BY] INT,
     [MODIFIED_AT] DATETIME2 DEFAULT GETDATE(),
@@ -80,7 +77,7 @@ CREATE TABLE [dbo].[EXERCISES] (
     [EXERCISE_DESCRIPTION] NVARCHAR(MAX),
     [EXERCISE_DIFFICULTY] NVARCHAR(20) NOT NULL CHECK ([EXERCISE_DIFFICULTY] IN ('Beginner', 'Intermediate', 'Advanced', 'Expert')),
     [EXERCISE_IMAGE] VARBINARY(MAX),
-    [STATUS] NVARCHAR(20) DEFAULT 'Active' CHECK ([STATUS] IN ('Active', 'Inactive')),
+    [STATUS] NVARCHAR(20) DEFAULT 'Y' CHECK ([STATUS] IN ('Y', 'N')),
     [CREATED_AT] DATETIME2 DEFAULT GETDATE(),
     [CREATED_BY] INT,
     [MODIFIED_AT] DATETIME2 DEFAULT GETDATE(),
@@ -95,7 +92,7 @@ CREATE TABLE [dbo].[PROGRESSIONS] (
     [PROGRESSION_DESCRIPTION] NVARCHAR(MAX),
     [PROGRESSION_IMAGE] VARBINARY(MAX),
     [COMPLETED] BIT DEFAULT 0,
-    [STATUS] NVARCHAR(20) DEFAULT 'Active' CHECK ([STATUS] IN ('Active', 'Inactive')),
+    [STATUS] NVARCHAR(20) DEFAULT 'Y' CHECK ([STATUS] IN ('Y', 'N')),
     [CREATED_AT] DATETIME2 DEFAULT GETDATE(),
     [CREATED_BY] INT,
     [MODIFIED_AT] DATETIME2 DEFAULT GETDATE(),
@@ -116,7 +113,7 @@ CREATE TABLE [dbo].[CLASSES] (
     [CLASS_IMAGE] VARBINARY(MAX),
     [CLASS_LOCATION] NVARCHAR(100) NOT NULL,
     [CLASS_PRICE] DECIMAL(10,2) DEFAULT 0.00,
-    [STATUS] NVARCHAR(20) DEFAULT 'Active' CHECK ([STATUS] IN ('Active', 'Inactive', 'Cancelled')),
+    [STATUS] NVARCHAR(20) DEFAULT 'Y' CHECK ([STATUS] IN ('Y', 'N', 'C')),
     [CREATED_AT] DATETIME2 DEFAULT GETDATE(),
     [CREATED_BY] INT,
     [MODIFIED_AT] DATETIME2 DEFAULT GETDATE(),
@@ -179,7 +176,7 @@ CREATE TABLE [dbo].[EXERCISE_PROGRESSION] (
     [EXERCISE_ID] INT NOT NULL,
     [PROGRESSION_ID] INT NOT NULL,
     [SEQUENCE_ORDER] INT NOT NULL,
-    [STATUS] NVARCHAR(20) DEFAULT 'Active' CHECK ([STATUS] IN ('Active', 'Inactive')),
+    [STATUS] NVARCHAR(20) DEFAULT 'Y' CHECK ([STATUS] IN ('Y', 'N')),
     [CREATED_AT] DATETIME2 DEFAULT GETDATE(),
     [CREATED_BY] INT,
     [MODIFIED_AT] DATETIME2 DEFAULT GETDATE(),
@@ -227,38 +224,38 @@ CREATE INDEX [IX_EXERCISE_PROGRESSION_PROGRESSION] ON [dbo].[EXERCISE_PROGRESSIO
 
 -- Insert Users
 INSERT INTO [dbo].[USER] ([USER_FN], [USER_LN], [USER_GENDER], [USER_AGE], [USER_EMAIL], [USER_MOBILE], [USER_EC_NAME], [USER_EC_PHNO], [USER_WEIGHT], [USER_HEIGHT], [USER_ROLE], [USER_JOIN_DATE], [USER_LAST_LOGIN], [STATUS], [CREATED_BY]) VALUES
-('John', 'Smith', 'Male', 28, 'john.smith@email.com', '+1234567890', 'Jane Smith', '+1234567891', 75.5, 1.80, 'Admin', '2024-01-15', '2024-01-20 10:30:00', 'Active', 1),
-('Sarah', 'Johnson', 'Female', 25, 'sarah.johnson@email.com', '+1234567892', 'Mike Johnson', '+1234567893', 65.0, 1.65, 'Instructor', '2024-01-16', '2024-01-20 09:15:00', 'Active', 1),
-('Mike', 'Wilson', 'Male', 32, 'mike.wilson@email.com', '+1234567894', 'Lisa Wilson', '+1234567895', 80.2, 1.85, 'Member', '2024-01-17', '2024-01-19 14:20:00', 'Active', 1),
-('Emma', 'Brown', 'Female', 29, 'emma.brown@email.com', '+1234567896', 'Tom Brown', '+1234567897', 58.3, 1.60, 'Member', '2024-01-18', '2024-01-20 16:45:00', 'Active', 1),
-('David', 'Davis', 'Male', 35, 'david.davis@email.com', '+1234567898', 'Anna Davis', '+1234567899', 88.7, 1.90, 'Member', '2024-01-19', '2024-01-20 08:30:00', 'Active', 1);
+('John', 'Smith', 'Male', 28, 'john.smith@email.com', '+1234567890', 'Jane Smith', '+1234567891', 75.5, 1.80, 'Admin', '2024-01-15', '2024-01-20 10:30:00', 'Y', 1),
+('Sarah', 'Johnson', 'Female', 25, 'sarah.johnson@email.com', '+1234567892', 'Mike Johnson', '+1234567893', 65.0, 1.65, 'Instructor', '2024-01-16', '2024-01-20 09:15:00', 'Y', 1),
+('Mike', 'Wilson', 'Male', 32, 'mike.wilson@email.com', '+1234567894', 'Lisa Wilson', '+1234567895', 80.2, 1.85, 'Member', '2024-01-17', '2024-01-19 14:20:00', 'Y', 1),
+('Emma', 'Brown', 'Female', 29, 'emma.brown@email.com', '+1234567896', 'Tom Brown', '+1234567897', 58.3, 1.60, 'Member', '2024-01-18', '2024-01-20 16:45:00', 'Y', 1),
+('David', 'Davis', 'Male', 35, 'david.davis@email.com', '+1234567898', 'Anna Davis', '+1234567899', 88.7, 1.90, 'Member', '2024-01-19', '2024-01-20 08:30:00', 'Y', 1);
 
 -- Insert Exercises
 INSERT INTO [dbo].[EXERCISES] ([EXERCISE_NAME], [EXERCISE_DESCRIPTION], [EXERCISE_DIFFICULTY], [STATUS], [CREATED_BY]) VALUES
-('Push-ups', 'Basic bodyweight exercise for chest, shoulders, and triceps', 'Beginner', 'Active', 1),
-('Pull-ups', 'Upper body strength exercise using a pull-up bar', 'Intermediate', 'Active', 1),
-('Handstand', 'Advanced bodyweight exercise requiring balance and strength', 'Advanced', 'Active', 1),
-('Muscle-up', 'Combination of pull-up and dip movement', 'Expert', 'Active', 1),
-('Plank', 'Core strengthening exercise', 'Beginner', 'Active', 1),
-('L-sit', 'Core and shoulder strength exercise', 'Intermediate', 'Active', 1),
-('Planche', 'Extreme upper body strength exercise', 'Expert', 'Active', 1),
-('Human Flag', 'Advanced side strength exercise', 'Expert', 'Active', 1);
+('Push-ups', 'Basic bodyweight exercise for chest, shoulders, and triceps', 'Beginner', 'Y', 1),
+('Pull-ups', 'Upper body strength exercise using a pull-up bar', 'Intermediate', 'Y', 1),
+('Handstand', 'Advanced bodyweight exercise requiring balance and strength', 'Advanced', 'Y', 1),
+('Muscle-up', 'Combination of pull-up and dip movement', 'Expert', 'Y', 1),
+('Plank', 'Core strengthening exercise', 'Beginner', 'Y', 1),
+('L-sit', 'Core and shoulder strength exercise', 'Intermediate', 'Y', 1),
+('Planche', 'Extreme upper body strength exercise', 'Expert', 'Y', 1),
+('Human Flag', 'Advanced side strength exercise', 'Expert', 'Y', 1);
 
 -- Insert Progressions
 INSERT INTO [dbo].[PROGRESSIONS] ([PROGRESSION_NAME], [PROGRESSION_DESCRIPTION], [COMPLETED], [STATUS], [CREATED_BY]) VALUES
-('Push-up Progression', 'From knee push-ups to one-arm push-ups', 0, 'Active', 1),
-('Pull-up Progression', 'From assisted pull-ups to weighted pull-ups', 0, 'Active', 1),
-('Handstand Progression', 'From wall handstand to freestanding handstand', 0, 'Active', 1),
-('Core Strength Progression', 'From basic planks to advanced core exercises', 0, 'Active', 1),
-('Upper Body Progression', 'Complete upper body strength development', 0, 'Active', 1);
+('Push-up Progression', 'From knee push-ups to one-arm push-ups', 0, 'Y', 1),
+('Pull-up Progression', 'From assisted pull-ups to weighted pull-ups', 0, 'Y', 1),
+('Handstand Progression', 'From wall handstand to freestanding handstand', 0, 'Y', 1),
+('Core Strength Progression', 'From basic planks to advanced core exercises', 0, 'Y', 1),
+('Upper Body Progression', 'Complete upper body strength development', 0, 'Y', 1);
 
 -- Insert Classes
 INSERT INTO [dbo].[CLASSES] ([CLASS_NAME], [CLASS_DESCRIPTION], [CLASS_START_TIME], [CLASS_END_TIME], [CLASS_DATE], [CLASS_DAY], [CLASS_LOCATION], [CLASS_PRICE], [STATUS], [CREATED_BY]) VALUES
-('Beginner Calisthenics', 'Introduction to basic bodyweight exercises', '09:00:00', '10:00:00', '2024-01-22', 'Monday', 'Main Gym', 25.00, 'Active', 1),
-('Intermediate Strength', 'Advanced bodyweight training for experienced practitioners', '18:00:00', '19:30:00', '2024-01-22', 'Monday', 'Main Gym', 35.00, 'Active', 1),
-('Handstand Workshop', 'Learn proper handstand technique and progression', '10:00:00', '12:00:00', '2024-01-23', 'Tuesday', 'Training Room A', 50.00, 'Active', 1),
-('Core Conditioning', 'Intensive core strengthening session', '19:00:00', '20:00:00', '2024-01-23', 'Tuesday', 'Main Gym', 30.00, 'Active', 1),
-('Advanced Skills', 'Expert-level calisthenics skills training', '17:00:00', '19:00:00', '2024-01-24', 'Wednesday', 'Training Room B', 60.00, 'Active', 1);
+('Beginner Calisthenics', 'Introduction to basic bodyweight exercises', '09:00:00', '10:00:00', '2024-01-22', 'Monday', 'Main Gym', 25.00, 'Y', 1),
+('Intermediate Strength', 'Advanced bodyweight training for experienced practitioners', '18:00:00', '19:30:00', '2024-01-22', 'Monday', 'Main Gym', 35.00, 'Y', 1),
+('Handstand Workshop', 'Learn proper handstand technique and progression', '10:00:00', '12:00:00', '2024-01-23', 'Tuesday', 'Training Room A', 50.00, 'Y', 1),
+('Core Conditioning', 'Intensive core strengthening session', '19:00:00', '20:00:00', '2024-01-23', 'Tuesday', 'Main Gym', 30.00, 'Y', 1),
+('Advanced Skills', 'Expert-level calisthenics skills training', '17:00:00', '19:00:00', '2024-01-24', 'Wednesday', 'Training Room B', 60.00, 'Y', 1);
 
 -- Insert Class Bookings
 INSERT INTO [dbo].[CLASS_BOOKING] ([BOOKING_STATUS], [USER_ID], [CLASS_ID]) VALUES
