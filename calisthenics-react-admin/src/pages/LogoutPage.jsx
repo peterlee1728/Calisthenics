@@ -1,19 +1,16 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { logout } from "../redux/authSlice"; // Adjust path as needed
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
 
 const LogoutPage = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // TODO: Add logout logic when Redux is set up
-    // dispatch(logout());
-
-    // Redirect to login after logout
+    dispatch(logout());
     navigate("/login", { replace: true });
-  }, [navigate]);
+  }, [dispatch, navigate]);
 
   return <div>Logging out...</div>;
 };

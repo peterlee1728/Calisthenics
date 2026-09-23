@@ -29,7 +29,14 @@ function AppRoutes() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/logout" element={<LogoutPage />} />
-      <Route path="home" element={<Home />} />
+      <Route
+        path="/home"
+        element={
+          <AuthWrapper>
+            <Home />
+          </AuthWrapper>
+        }
+      />
       <Route
         path="/"
         element={
