@@ -27,3 +27,4 @@ public class CreateExerciseDto {
     private Exercise.Status status; // Optional, defaults to Active in entity
 }
 
+

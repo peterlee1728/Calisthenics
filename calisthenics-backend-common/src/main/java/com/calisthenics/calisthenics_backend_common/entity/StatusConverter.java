@@ -1,4 +1,4 @@
-package com.calisthenics.calisthenics_backend_common.entity.converter;
+package com.calisthenics.calisthenics_backend_common.entity;
 
 import com.calisthenics.calisthenics_backend_common.entity.User;
 import jakarta.persistence.AttributeConverter;

@@ -30,3 +30,4 @@ public class UpdateExerciseDto {
     private Exercise.Status status;
 }
 
+

@@ -1,3 +1,19 @@
 spring:
   application:
     name: calisthenics-backend-admin
+  config:
+    import: classpath:application-common.yaml
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.calisthenics: DEBUG
+
+jwt:
+  # Minimum 32 characters for HMAC-SHA256. Override via env var JWT_SECRET in production.
+  secret: ${JWT_SECRET:calisthenics-admin-secret-key-change-in-production-min32}
+  # Token validity in milliseconds: 3600000 = 1 hour
+  expiration-ms: ${JWT_EXPIRATION_MS:3600000}

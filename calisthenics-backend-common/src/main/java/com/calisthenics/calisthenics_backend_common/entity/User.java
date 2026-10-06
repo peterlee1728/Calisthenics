@@ -34,7 +34,7 @@ public class User {
     @Column(name = "USER_LN", nullable = false, length = 50)
     private String userLn;
 
-    @NotBlank(message = "Gender is required")
+    @NotNull(message = "Gender is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "USER_GENDER", nullable = false, length = 10)
     private Gender userGender;
@@ -94,6 +94,10 @@ public class User {
 
     @Column(name = "USER_LAST_LOGIN")
     private LocalDateTime userLastLogin;
+
+    /** BCrypt (or compatible) encoded password; never expose in API responses. */
+    @Column(name = "USER_PASSWORD_HASH", length = 255)
+    private String userPasswordHash;
 
     @Convert(converter = StatusConverter.class)
     @Column(name = "STATUS", nullable = false, length = 20)
