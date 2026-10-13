@@ -1,0 +1,65 @@
+.p-panelmenu {
+  border: 1px solid #d8dee9;
+  border-bottom: none;
+  border-radius: 5px;
+
+  .p-icon {
+    order: 1;
+    margin-right: 1px;
+    color: rgb(157, 153, 153);
+  }
+
+  .p-menuitem-text {
+    flex-grow: 1;
+    font-weight: 500;
+    font-size: 11pt;
+    color: rgb(157, 153, 153);
+  }
+
+  .p-menuitem .p-menuitem-link:hover {
+    background-color: #f3f4f6;
+    box-shadow: none;
+  }
+
+  .p-panelmenu-content {
+    padding: 0;
+  }
+
+  .p-menuitem:hover .p-menuitem-text {
+    color: black;
+    font-weight: bold;
+  }
+
+  .p-panelmenu-header:hover .p-menuitem-text {
+    color: black;
+    font-weight: bold;
+  }
+
+  .calis-active-menu-item {
+    background-color: #f3f4f6;
+  }
+
+  .calis-active-menu-item .p-menuitem-text {
+    color: black;
+    font-weight: bold;
+  }
+
+  .calis-active-menu-item .p-menuitem .p-menuitem-text {
+    color: black;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 768px) {
+  .p-panelmenu .p-menuitem-text {
+    font-size: 0.65em;
+  }
+}
+
+.p-panelmenu-header-link:hover {
+  background-color: #f3f4f6;
+}
+
+.calis-active-menu-item .p-panelmenu-header-link {
+  background-color: #f3f4f6;
+}
