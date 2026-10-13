@@ -5,7 +5,8 @@ const AUTH_STORAGE_KEY = "calisthenics_admin_auth";
 const defaultAuthState = {
   loggedInAs: false,
   userRole: null,
-  username: null,
+  email: null,
+  token: null,
 };
 
 function readPersistedAuthState() {
@@ -40,7 +41,8 @@ function persistAuthState(authState) {
     JSON.stringify({
       loggedInAs: authState.loggedInAs,
       userRole: authState.userRole,
-      username: authState.username,
+      email: authState.email,
+      token: authState.token,
     })
   );
 }
@@ -54,10 +56,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      const { username, userRole = "SA" } = action.payload;
+      const { email, userRole, token } = action.payload;
       state.authState.loggedInAs = true;
-      state.authState.username = username;
+      state.authState.email = email;
       state.authState.userRole = userRole;
+      state.authState.token = token;
       persistAuthState(state.authState);
     },
     logout: (state) => {
