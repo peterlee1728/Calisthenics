@@ -16,28 +16,53 @@ import { login } from "@/redux/authSlice";
 export function LoginDialog() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
 
-    const trimmedUsername = username.trim();
-    if (!trimmedUsername || !password) {
-      setError("Username and password are required.");
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !password) {
+      setError("Email and password are required.");
       return;
     }
 
-    // Placeholder until backend login is wired; replace with API call + real role.
-    dispatch(
-      login({
-        username: trimmedUsername,
-        userRole: "SA",
-      })
-    );
-    navigate("/home", { replace: true });
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmedEmail, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Backend returned 401 with { "error": "..." }
+        setError(data.error || "Login failed. Please try again.");
+        return;
+      }
+
+      // Success — store token + user info in Redux/sessionStorage
+      dispatch(
+        login({
+          email: data.email,
+          userRole: data.role,
+          token: data.token,
+        })
+      );
+
+      navigate("/home", { replace: true });
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Cannot connect to server. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -50,14 +75,14 @@ export function LoginDialog() {
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <h3 className="text-lg font-bold text-left">Username</h3>
+              <h3 className="text-lg font-bold text-left">Email</h3>
               <Input
-                id="username"
+                id="email"
                 type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                autoComplete="username"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                autoComplete="email"
               />
             </div>
             <div className="grid gap-2">
