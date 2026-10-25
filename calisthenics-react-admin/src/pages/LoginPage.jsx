@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./LoginPage.scss";
-import { LoginDialog } from "./LoginDialog";
+import { LoginCard } from "./LoginCard";
 
 const LoginPage = () => {
   const isAuthenticated = useSelector(
@@ -15,10 +15,9 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <div className="login-container-left">
-      </div>
+      <div className="login-container-left"></div>
       <div className="login-container-right">
-        <LoginDialog />
+        <LoginCard />
       </div>
     </div>
   );
