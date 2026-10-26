@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import "./LoginPage.scss";
 import { LoginCard } from "./LoginCard";
 
-const LoginPage = () => {
+export default function LoginPage(){
   const isAuthenticated = useSelector(
     (state) => state.token.authState.loggedInAs
   );
@@ -14,13 +14,15 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="login-page">
+    <div className="login-page relative">
       <div className="login-container-left"></div>
       <div className="login-container-right">
         <LoginCard />
       </div>
+      <span className="absolute bottom-2 right-3 text-xs text-muted-foreground">
+        v{__APP_VERSION__}
+      </span>
     </div>
   );
 };
 
-export default LoginPage;

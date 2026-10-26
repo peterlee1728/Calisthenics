@@ -5,6 +5,11 @@ import LoginPage from "../pages/LoginPage.jsx";
 import AuthWrapper from "./AuthWrapper.jsx";
 import LogoutPage from "../pages/LogoutPage.jsx";
 import Home from "../pages/Home.jsx";
+import Dashboard from "../pages/Dashboard.jsx";
+import ProfilePage from "../pages/ProfilePage.jsx";
+import UserListing from "../pages/users/UserListing.jsx";
+import AddUser from "../pages/users/AddUser.jsx";
+import EditUser from "../pages/users/EditUser.jsx";
 // import { useSelector } from "react-redux";
 // import { useTranslation } from "react-i18next";
 
@@ -34,6 +39,19 @@ function AppRoutes() {
         element={
           <AuthWrapper>
             <Home />
+          </AuthWrapper>
+        }
+      >
+        <Route index element={<Dashboard />} />
+        <Route path="users" element={<UserListing />} />
+        <Route path="users/add" element={<AddUser />} />
+        <Route path="users/:id/edit" element={<EditUser />} />
+      </Route>
+      <Route
+        path="/profile"
+        element={
+          <AuthWrapper>
+            <ProfilePage />
           </AuthWrapper>
         }
       />
