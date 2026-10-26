@@ -1,0 +1,4 @@
+@layer primereact;
+@import "primereact/resources/themes/lara-light-blue/theme.css" layer(primereact);
+@import "primereact/resources/primereact.min.css" layer(primereact);
+@import "primeicons/primeicons.css" layer(primereact);

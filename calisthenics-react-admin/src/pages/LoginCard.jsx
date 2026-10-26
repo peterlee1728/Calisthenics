@@ -7,13 +7,15 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
+  CardDescription,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { ShineBorder } from "@/components/ui/shine-border";
 import { login } from "@/redux/authSlice";
 
-export function LoginDialog() {
+export function LoginCard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -69,24 +71,27 @@ export function LoginDialog() {
     <Card className="relative w-full max-w-[350px] overflow-hidden">
       <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
       <CardHeader>
-        <CardTitle>Admin Login</CardTitle>
+        <CardTitle>Login</CardTitle>
+        <CardDescription>
+          Enter your credentials to access your account
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <h3 className="text-lg font-bold text-left">Email</h3>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                type="text"
-                placeholder="Enter your email"
+                type="email"
+                placeholder="name@example.com"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 autoComplete="email"
               />
             </div>
             <div className="grid gap-2">
-              <h3 className="text-lg font-bold text-left">Password</h3>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -100,16 +105,17 @@ export function LoginDialog() {
               <p className="text-sm text-red-600 text-left">{error}</p>
             ) : null}
           </div>
-          <CardFooter className="px-0 pt-4">
-            <Button
-              type="submit"
-              className="w-full bg-black text-white border-black hover:border-black"
-            >
-              Login
-            </Button>
-          </CardFooter>
         </form>
       </CardContent>
+      <CardFooter>
+        <Button
+          type="submit"
+          className="w-full"
+          onClick={handleSubmit}
+        >
+          Sign In
+        </Button>
+      </CardFooter>
     </Card>
   );
 }
