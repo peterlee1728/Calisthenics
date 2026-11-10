@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api, getErrorMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -72,10 +73,6 @@ export default function ExerciseForm({ mode = "add", existingExercise = null }) 
 
     try {
       const isAdd = mode === "add";
-      const endpoint = isAdd
-        ? "http://localhost:8080/api/exercises"
-        : `http://localhost:8080/api/exercises/${existingExercise?.exerciseId}`;
-
       const payload = { ...form };
       if (!isAdd) payload.exerciseId = existingExercise?.exerciseId;
       if (imageFile) {
@@ -84,16 +81,10 @@ export default function ExerciseForm({ mode = "add", existingExercise = null }) 
         payload.exerciseImage = existingExercise.exerciseImage;
       }
 
-      const response = await fetch(endpoint, {
-        method: isAdd ? "POST" : "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        setError(data.error || data.message || t("exercises.saveError"));
-        return;
+      if (isAdd) {
+        await api.post("/exercises", payload);
+      } else {
+        await api.put(`/exercises/${existingExercise?.exerciseId}`, payload);
       }
 
       setSuccess(t("exercises.saveSuccess"));
@@ -102,8 +93,8 @@ export default function ExerciseForm({ mode = "add", existingExercise = null }) 
         setImageFile(null);
         setImagePreview(null);
       }
-    } catch {
-      setError(t("exercises.saveError"));
+    } catch (err) {
+      setError(getErrorMessage(err, t("exercises.saveError")));
     } finally {
       setIsLoading(false);
     }

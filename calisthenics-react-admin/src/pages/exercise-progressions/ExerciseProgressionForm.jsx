@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api, getErrorMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,8 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-const API = "http://localhost:8080/api";
 
 const DEFAULT_FORM = {
   exerciseId: "",
@@ -37,13 +36,13 @@ export default function ExerciseProgressionForm({
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`${API}/exercises`)
-      .then((res) => res.json())
-      .then(setExercises)
+    api
+      .get("/exercises")
+      .then((res) => setExercises(res.data))
       .catch(() => {});
-    fetch(`${API}/progressions`)
-      .then((res) => res.json())
-      .then(setProgressions)
+    api
+      .get("/progressions")
+      .then((res) => setProgressions(res.data))
       .catch(() => {});
   }, []);
 
@@ -70,10 +69,6 @@ export default function ExerciseProgressionForm({
 
     try {
       const isAdd = mode === "add";
-      const endpoint = isAdd
-        ? `${API}/exercise-progressions`
-        : `${API}/exercise-progressions/${existingItem?.exerciseProgressionId}`;
-
       const payload = {
         exerciseId: Number(form.exerciseId),
         progressionId: Number(form.progressionId),
@@ -82,24 +77,19 @@ export default function ExerciseProgressionForm({
       };
       if (!isAdd) payload.exerciseProgressionId = existingItem?.exerciseProgressionId;
 
-      const response = await fetch(endpoint, {
-        method: isAdd ? "POST" : "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        setError(
-          data.error || data.message || t("exerciseProgressions.saveError")
+      if (isAdd) {
+        await api.post("/exercise-progressions", payload);
+      } else {
+        await api.put(
+          `/exercise-progressions/${existingItem?.exerciseProgressionId}`,
+          payload
         );
-        return;
       }
 
       setSuccess(t("exerciseProgressions.saveSuccess"));
       if (isAdd) setForm(DEFAULT_FORM);
-    } catch {
-      setError(t("exerciseProgressions.saveError"));
+    } catch (err) {
+      setError(getErrorMessage(err, t("exerciseProgressions.saveError")));
     } finally {
       setIsLoading(false);
     }

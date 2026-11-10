@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api } from "@/api/client";
 import ExerciseForm from "./ExerciseForm";
 
 export default function EditExercise() {
@@ -9,9 +10,9 @@ export default function EditExercise() {
   const [exercise, setExercise] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/exercises/${id}`)
-      .then((res) => res.json())
-      .then((data) => setExercise(data))
+    api
+      .get(`/exercises/${id}`)
+      .then((res) => setExercise(res.data))
       .catch(() => {});
   }, [id]);
 

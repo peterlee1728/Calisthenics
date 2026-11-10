@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,11 +25,8 @@ export default function UserListing() {
   const fetchUsers = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/users");
-      if (response.ok) {
-        const data = await response.json();
-        setUsers(data);
-      }
+      const response = await api.get("/users");
+      setUsers(response.data);
     } catch (err) {
       console.error("Failed to fetch users:", err);
     } finally {

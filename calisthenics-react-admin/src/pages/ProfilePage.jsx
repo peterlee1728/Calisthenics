@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { api, getErrorMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -42,29 +43,19 @@ export default function ProfilePage() {
 
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/auth/change-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          currentPassword,
-          newPassword,
-        }),
+      await api.post("/auth/change-password", {
+        email,
+        currentPassword,
+        newPassword,
       });
-
-      if (!response.ok) {
-        const data = await response.json();
-        setError(data.error || t("profile.passwordError"));
-        return;
-      }
 
       setSuccess(t("profile.passwordSuccess"));
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
       setShowPasswordForm(false);
-    } catch {
-      setError(t("profile.passwordError"));
+    } catch (err) {
+      setError(getErrorMessage(err, t("profile.passwordError")));
     } finally {
       setIsLoading(false);
     }

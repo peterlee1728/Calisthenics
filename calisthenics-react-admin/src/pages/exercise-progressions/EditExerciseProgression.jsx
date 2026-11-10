@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api } from "@/api/client";
 import ExerciseProgressionForm from "./ExerciseProgressionForm";
 
 export default function EditExerciseProgression() {
@@ -9,9 +10,9 @@ export default function EditExerciseProgression() {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/exercise-progressions/${id}`)
-      .then((res) => res.json())
-      .then(setItem)
+    api
+      .get(`/exercise-progressions/${id}`)
+      .then((res) => setItem(res.data))
       .catch(() => {});
   }, [id]);
 

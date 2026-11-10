@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api, getErrorMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -121,13 +122,6 @@ export default function ClassForm({ mode = "add", existingClass = null }) {
     setIsLoading(true);
 
     try {
-      const endpoint =
-        mode === "add"
-          ? "http://localhost:8080/api/classes"
-          : `http://localhost:8080/api/classes/${existingClass?.id}`;
-
-      const method = mode === "add" ? "POST" : "PUT";
-
       const payload = {
         ...form,
         day: dayOfWeek,
@@ -135,16 +129,10 @@ export default function ClassForm({ mode = "add", existingClass = null }) {
       };
       delete payload.image;
 
-      const response = await fetch(endpoint, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        setError(data.error || t("classes.saveError"));
-        return;
+      if (mode === "add") {
+        await api.post("/classes", payload);
+      } else {
+        await api.put(`/classes/${existingClass?.id}`, payload);
       }
 
       setSuccess(t("classes.saveSuccess"));
@@ -152,8 +140,8 @@ export default function ClassForm({ mode = "add", existingClass = null }) {
         setForm(DEFAULT_FORM);
         setImagePreview(null);
       }
-    } catch {
-      setError(t("classes.saveError"));
+    } catch (err) {
+      setError(getErrorMessage(err, t("classes.saveError")));
     } finally {
       setIsLoading(false);
     }

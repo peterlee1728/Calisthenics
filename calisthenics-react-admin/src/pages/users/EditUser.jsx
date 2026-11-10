@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api } from "@/api/client";
 import UserForm from "./UserForm";
 
 export default function EditUser() {
@@ -12,11 +13,8 @@ export default function EditUser() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/users/${id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setUser(data);
-        }
+        const response = await api.get(`/users/${id}`);
+        setUser(response.data);
       } catch (err) {
         console.error("Failed to fetch user:", err);
       } finally {

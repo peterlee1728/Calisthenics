@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api, getErrorMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -73,26 +74,13 @@ export default function UserForm({ mode = "add", existingUser = null }) {
     setIsLoading(true);
 
     try {
-      const endpoint =
-        mode === "add"
-          ? "http://localhost:8080/api/users"
-          : `http://localhost:8080/api/users/${existingUser?.id}`;
-
-      const method = mode === "add" ? "POST" : "PUT";
-
       const payload = { ...form, bmi: calculateBMI() };
       delete payload.profileImage;
 
-      const response = await fetch(endpoint, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        setError(data.error || t("users.saveError"));
-        return;
+      if (mode === "add") {
+        await api.post("/users", payload);
+      } else {
+        await api.put(`/users/${existingUser?.id}`, payload);
       }
 
       setSuccess(t("users.saveSuccess"));
@@ -100,8 +88,8 @@ export default function UserForm({ mode = "add", existingUser = null }) {
         setForm(DEFAULT_FORM);
         setImagePreview(null);
       }
-    } catch {
-      setError(t("users.saveError"));
+    } catch (err) {
+      setError(getErrorMessage(err, t("users.saveError")));
     } finally {
       setIsLoading(false);
     }
