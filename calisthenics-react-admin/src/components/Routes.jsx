@@ -10,6 +10,9 @@ import ProfilePage from "../pages/ProfilePage.jsx";
 import UserListing from "../pages/users/UserListing.jsx";
 import AddUser from "../pages/users/AddUser.jsx";
 import EditUser from "../pages/users/EditUser.jsx";
+import ClassListing from "../pages/classes/ClassListing.jsx";
+import AddClass from "../pages/classes/AddClass.jsx";
+import EditClass from "../pages/classes/EditClass.jsx";
 // import { useSelector } from "react-redux";
 // import { useTranslation } from "react-i18next";
 
@@ -46,6 +49,12 @@ function AppRoutes() {
         <Route path="users" element={<UserListing />} />
         <Route path="users/add" element={<AddUser />} />
         <Route path="users/:id/edit" element={<EditUser />} />
+        <Route path="classes" element={<ClassListing />} />
+        <Route path="classes/add" element={<AddClass />} />
+        <Route path="classes/:id/edit" element={<EditClass />} />
+        <Route path="exercises" element={<ExerciseListing />} />
+        <Route path="exercises/add" element={<AddExercise />} />
+        <Route path="exercises/:id/edit" element={<EditExercise />} />
       </Route>
       <Route
         path="/profile"
