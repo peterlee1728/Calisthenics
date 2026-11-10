@@ -139,6 +139,32 @@
     "saveError": "Failed to save exercise. Please try again.",
     "actionError": "Action failed. Please try again."
   },
+  "exerciseProgressions": {
+    "title": "Exercise Progressions",
+    "addExerciseProgression": "Add Exercise Progression",
+    "editExerciseProgression": "Edit Exercise Progression",
+    "searchPlaceholder": "Search by exercise or progression...",
+    "exercise": "Exercise",
+    "selectExercise": "Select exercise",
+    "progression": "Progression",
+    "selectProgression": "Select progression",
+    "sequenceOrder": "Sequence Order",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "actions": "Actions",
+    "edit": "Edit",
+    "hide": "Hide",
+    "unhide": "Unhide",
+    "remove": "Remove",
+    "confirmRemove": "Remove this exercise progression permanently? This cannot be undone.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "noResults": "No exercise progressions found.",
+    "saveSuccess": "Exercise progression saved successfully.",
+    "saveError": "Failed to save exercise progression. Please try again.",
+    "actionError": "Action failed. Please try again."
+  },
   "common": {
     "back": "Back",
     "loading": "Loading..."
