@@ -13,6 +13,9 @@ import EditUser from "../pages/users/EditUser.jsx";
 import ClassListing from "../pages/classes/ClassListing.jsx";
 import AddClass from "../pages/classes/AddClass.jsx";
 import EditClass from "../pages/classes/EditClass.jsx";
+import ExerciseListing from "../pages/exercises/ExerciseListing.jsx";
+import AddExercise from "../pages/exercises/AddExercise.jsx";
+import EditExercise from "../pages/exercises/EditExercise.jsx";
 // import { useSelector } from "react-redux";
 // import { useTranslation } from "react-i18next";
 
