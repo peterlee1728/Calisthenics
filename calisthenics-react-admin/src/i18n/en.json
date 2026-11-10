@@ -82,6 +82,33 @@
     "saveSuccess": "User saved successfully.",
     "saveError": "Failed to save user. Please try again."
   },
+  "classes": {
+    "title": "Classes",
+    "addClass": "Add Class",
+    "editClass": "Edit Class",
+    "searchPlaceholder": "Search classes...",
+    "name": "Class Name",
+    "description": "Class Description",
+    "date": "Class Date",
+    "day": "Day",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "duration": "Duration",
+    "image": "Class Image",
+    "location": "Location",
+    "price": "Price",
+    "selectTime": "Select time",
+    "actions": "Actions",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "noResults": "No classes found.",
+    "saveSuccess": "Class saved successfully.",
+    "saveError": "Failed to save class. Please try again.",
+    "durationHours": "{{hours}} hr",
+    "durationMinutes": "{{minutes}} min",
+    "durationHoursMinutes": "{{hours}} hr {{minutes}} min"
+  },
   "common": {
     "back": "Back",
     "loading": "Loading..."
