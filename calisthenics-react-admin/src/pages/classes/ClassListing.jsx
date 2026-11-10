@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -17,9 +18,9 @@ export default function ClassListing() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/classes")
-      .then((res) => res.json())
-      .then((data) => setClasses(data))
+    api
+      .get("/classes")
+      .then((res) => setClasses(res.data))
       .catch(() => {});
   }, []);
 

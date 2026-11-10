@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { api } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,19 +36,10 @@ export function LoginCard() {
 
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: trimmedEmail, password }),
+      const { data } = await api.post("/auth/login", {
+        email: trimmedEmail,
+        password,
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        // Backend returned 401 with { "error": "..." }
-        setError(data.error || "Login failed. Please try again.");
-        return;
-      }
 
       // Success — store token + user info in Redux/sessionStorage
       dispatch(
@@ -60,8 +52,13 @@ export function LoginCard() {
 
       navigate("/home", { replace: true });
     } catch (err) {
-      console.error("Login error:", err);
-      setError("Cannot connect to server. Please try again.");
+      if (err.response) {
+        // Backend returned an error such as 401 with { "error": "..." }
+        setError(err.response.data?.error || "Login failed. Please try again.");
+      } else {
+        console.error("Login error:", err);
+        setError("Cannot connect to server. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }

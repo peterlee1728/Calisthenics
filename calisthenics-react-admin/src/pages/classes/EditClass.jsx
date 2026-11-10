@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api } from "@/api/client";
 import ClassForm from "./ClassForm";
 
 export default function EditClass() {
@@ -9,9 +10,9 @@ export default function EditClass() {
   const [classData, setClassData] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/classes/${id}`)
-      .then((res) => res.json())
-      .then((data) => setClassData(data))
+    api
+      .get(`/classes/${id}`)
+      .then((res) => setClassData(res.data))
       .catch(() => {});
   }, [id]);
 

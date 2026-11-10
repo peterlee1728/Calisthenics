@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,8 +11,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const API = "http://localhost:8080/api/exercises";
-
 export default function ExerciseListing() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -20,9 +19,9 @@ export default function ExerciseListing() {
   const [error, setError] = useState("");
 
   const load = () => {
-    fetch(API)
-      .then((res) => res.json())
-      .then((data) => setExercises(data))
+    api
+      .get("/exercises")
+      .then((res) => setExercises(res.data))
       .catch(() => {});
   };
 
@@ -41,12 +40,10 @@ export default function ExerciseListing() {
     setError("");
     const status = exercise.status === "Active" ? "Inactive" : "Active";
     try {
-      const res = await fetch(`${API}/${exercise.exerciseId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...exercise, status }),
+      await api.put(`/exercises/${exercise.exerciseId}`, {
+        ...exercise,
+        status,
       });
-      if (!res.ok) throw new Error();
       load();
     } catch {
       setError(t("exercises.actionError"));
@@ -57,10 +54,7 @@ export default function ExerciseListing() {
     if (!window.confirm(t("exercises.confirmRemove"))) return;
     setError("");
     try {
-      const res = await fetch(`${API}/${exercise.exerciseId}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) throw new Error();
+      await api.delete(`/exercises/${exercise.exerciseId}`);
       load();
     } catch {
       setError(t("exercises.actionError"));

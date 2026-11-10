@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { api } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -9,8 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-const API = "http://localhost:8080/api";
 
 export default function ExerciseProgressionListing() {
   const { t } = useTranslation();
@@ -22,21 +21,21 @@ export default function ExerciseProgressionListing() {
   const [error, setError] = useState("");
 
   const load = () => {
-    fetch(`${API}/exercise-progressions`)
-      .then((res) => res.json())
-      .then(setItems)
+    api
+      .get("/exercise-progressions")
+      .then((res) => setItems(res.data))
       .catch(() => {});
   };
 
   useEffect(() => {
     load();
-    fetch(`${API}/exercises`)
-      .then((res) => res.json())
-      .then(setExercises)
+    api
+      .get("/exercises")
+      .then((res) => setExercises(res.data))
       .catch(() => {});
-    fetch(`${API}/progressions`)
-      .then((res) => res.json())
-      .then(setProgressions)
+    api
+      .get("/progressions")
+      .then((res) => setProgressions(res.data))
       .catch(() => {});
   }, []);
 
@@ -67,21 +66,13 @@ export default function ExerciseProgressionListing() {
     setError("");
     const status = item.status === "Active" ? "Inactive" : "Active";
     try {
-      const res = await fetch(
-        `${API}/exercise-progressions/${item.exerciseProgressionId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            exerciseProgressionId: item.exerciseProgressionId,
-            exerciseId: item.exerciseId,
-            progressionId: item.progressionId,
-            sequenceOrder: item.sequenceOrder,
-            status,
-          }),
-        }
-      );
-      if (!res.ok) throw new Error();
+      await api.put(`/exercise-progressions/${item.exerciseProgressionId}`, {
+        exerciseProgressionId: item.exerciseProgressionId,
+        exerciseId: item.exerciseId,
+        progressionId: item.progressionId,
+        sequenceOrder: item.sequenceOrder,
+        status,
+      });
       load();
     } catch {
       setError(t("exerciseProgressions.actionError"));
@@ -92,11 +83,7 @@ export default function ExerciseProgressionListing() {
     if (!window.confirm(t("exerciseProgressions.confirmRemove"))) return;
     setError("");
     try {
-      const res = await fetch(
-        `${API}/exercise-progressions/${item.exerciseProgressionId}`,
-        { method: "DELETE" }
-      );
-      if (!res.ok) throw new Error();
+      await api.delete(`/exercise-progressions/${item.exerciseProgressionId}`);
       load();
     } catch {
       setError(t("exerciseProgressions.actionError"));
