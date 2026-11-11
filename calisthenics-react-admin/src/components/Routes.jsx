@@ -19,6 +19,9 @@ import EditExercise from "../pages/exercises/EditExercise.jsx";
 import ExerciseProgressionListing from "../pages/exercise-progressions/ExerciseProgressionListing.jsx";
 import AddExerciseProgression from "../pages/exercise-progressions/AddExerciseProgression.jsx";
 import EditExerciseProgression from "../pages/exercise-progressions/EditExerciseProgression.jsx";
+import UserProgressionListing from "../pages/user-progressions/UserProgressionListing.jsx";
+import AddUserProgression from "../pages/user-progressions/AddUserProgression.jsx";
+import EditUserProgression from "../pages/user-progressions/EditUserProgression.jsx";
 // import { useSelector } from "react-redux";
 // import { useTranslation } from "react-i18next";
 
@@ -64,6 +67,9 @@ function AppRoutes() {
         <Route path="exercise-progressions" element={<ExerciseProgressionListing />} />
         <Route path="exercise-progressions/add" element={<AddExerciseProgression />} />
         <Route path="exercise-progressions/:id/edit" element={<EditExerciseProgression />} />
+        <Route path="user-progressions" element={<UserProgressionListing />} />
+        <Route path="user-progressions/add" element={<AddUserProgression />} />
+        <Route path="user-progressions/:id/edit" element={<EditUserProgression />} />
       </Route>
       <Route
         path="/profile"

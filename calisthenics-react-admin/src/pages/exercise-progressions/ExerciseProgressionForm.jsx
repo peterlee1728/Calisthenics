@@ -5,6 +5,7 @@ import { api, getErrorMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import {
   Card,
   CardContent,
@@ -18,9 +19,6 @@ const DEFAULT_FORM = {
   sequenceOrder: "",
   status: "Active",
 };
-
-const selectClass =
-  "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
 export default function ExerciseProgressionForm({
   mode = "add",
@@ -122,9 +120,8 @@ export default function ExerciseProgressionForm({
               <Label htmlFor="exerciseId">
                 {t("exerciseProgressions.exercise")}
               </Label>
-              <select
+              <NativeSelect
                 id="exerciseId"
-                className={selectClass}
                 value={form.exerciseId}
                 onChange={(e) => handleChange("exerciseId", e.target.value)}
                 required
@@ -137,16 +134,15 @@ export default function ExerciseProgressionForm({
                     {ex.exerciseName}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="grid gap-2">
               <Label htmlFor="progressionId">
                 {t("exerciseProgressions.progression")}
               </Label>
-              <select
+              <NativeSelect
                 id="progressionId"
-                className={selectClass}
                 value={form.progressionId}
                 onChange={(e) => handleChange("progressionId", e.target.value)}
                 required
@@ -159,7 +155,7 @@ export default function ExerciseProgressionForm({
                     {p.progressionName}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="grid gap-2">

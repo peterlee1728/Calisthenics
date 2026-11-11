@@ -10,6 +10,8 @@ export {
 } from "./card";
 export { Input } from "./input";
 export { Label } from "./label";
+export { NativeSelect } from "./native-select";
+export { Textarea } from "./textarea";
 export { ShineBorder } from "./shine-border";
 export { Globe } from "./globe";
 export { BorderBeam } from "./border-beam";
