@@ -5,6 +5,8 @@ import { api, getErrorMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
   CardContent,
@@ -180,9 +182,8 @@ export default function ClassForm({ mode = "add", existingClass = null }) {
 
             <div className="grid gap-2">
               <Label htmlFor="description">{t("classes.description")}</Label>
-              <textarea
+              <Textarea
                 id="description"
-                className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[80px]"
                 value={form.description}
                 onChange={(e) => handleChange("description", e.target.value)}
                 required
@@ -211,9 +212,8 @@ export default function ClassForm({ mode = "add", existingClass = null }) {
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="startTime">{t("classes.startTime")}</Label>
-                <select
+                <NativeSelect
                   id="startTime"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   value={form.startTime}
                   onChange={(e) => handleChange("startTime", e.target.value)}
                   required
@@ -228,13 +228,12 @@ export default function ClassForm({ mode = "add", existingClass = null }) {
                       {slot.label}
                     </option>
                   ))}
-                </select>
+                </NativeSelect>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="endTime">{t("classes.endTime")}</Label>
-                <select
+                <NativeSelect
                   id="endTime"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   value={form.endTime}
                   onChange={(e) => handleChange("endTime", e.target.value)}
                   required
@@ -249,7 +248,7 @@ export default function ClassForm({ mode = "add", existingClass = null }) {
                       {slot.label}
                     </option>
                   ))}
-                </select>
+                </NativeSelect>
               </div>
             </div>
 

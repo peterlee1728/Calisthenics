@@ -51,7 +51,7 @@ function UserProfile({ email, onProfileClick, onLogout }) {
 
   return (
     <div className="border-t">
-      <div className="flex items-center gap-3 px-4 py-3">
+      <div className="flex items-center gap-3 px-4 py-1">
         <button
           className="flex items-center gap-3 flex-1 min-w-0 hover:opacity-80 transition-opacity"
           onClick={onProfileClick}
@@ -70,7 +70,7 @@ function UserProfile({ email, onProfileClick, onLogout }) {
           <PowerOff className="w-4 h-4" />
         </button>
       </div>
-      <div className="px-4 pb-2 text-right">
+      <div className="text-center">
         <span className="text-[10px] text-muted-foreground">v{__APP_VERSION__}</span>
       </div>
     </div>
